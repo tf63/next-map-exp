@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
+import { GoogleMap, InfoWindowF, useJsApiLoader } from '@react-google-maps/api'
 import { InterfaceMapStyle } from '@/lib/MapStyles'
 
 const containerStyle = {
@@ -9,11 +9,11 @@ const containerStyle = {
 }
 
 const center = {
-    lat: 35.7022589,
-    lng: 139.7744733
+    lat: 36,
+    lng: 140
 }
 
-const MyComponent = () => {
+const Map = React.memo(() => {
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
         googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY!
@@ -46,12 +46,24 @@ const MyComponent = () => {
             onLoad={onLoad}
             onUnmount={onUnmount}
         >
-            {/* Child components, such as markers, info windows, etc. */}
-            <></>
+            <InfoWindowF position={center}>
+                <>
+                    <div>aaaaaa</div>
+                </>
+            </InfoWindowF>
         </GoogleMap>
     ) : (
         <></>
     )
+})
+
+const Page = () => {
+    return (
+        <div>
+            <h1>Google Map from Next App</h1>
+            <Map />
+        </div>
+    )
 }
 
-export default React.memo(MyComponent)
+export default Page
